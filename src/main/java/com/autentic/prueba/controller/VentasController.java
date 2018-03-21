@@ -26,7 +26,7 @@ public class VentasController {
 	@RequestMapping(value = ConstantesUtil.REGISTRAR_VENTA, method = RequestMethod.POST, 
 			consumes=ConstantesUtil.APPLICATION_JSON,produces = ConstantesUtil.APPLICATION_JSON)
 	@ResponseBody
-	public RegistrarVentaResponse reservarVuelo(@RequestBody VentaDto ventaDto) {
+	public RegistrarVentaResponse registrarVenta(@RequestBody VentaDto ventaDto) {
 		RegistrarVentaResponse registrarVentaResponse = null;
 		try {
 			registrarVentaResponse = ventasService.registrarVenta(ventaDto);

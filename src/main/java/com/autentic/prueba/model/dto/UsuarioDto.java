@@ -1,7 +1,6 @@
 package com.autentic.prueba.model.dto;
 
 import java.io.Serializable;
-import java.util.Date;
 
 public class UsuarioDto implements Serializable {
 
@@ -9,7 +8,6 @@ public class UsuarioDto implements Serializable {
 	
 	private Integer id;
 	private String apellido;
-	private Date fechaNacimiento;
 	private String nombre;
 	private String telefono;
 	private String cedula;
@@ -25,12 +23,6 @@ public class UsuarioDto implements Serializable {
 	}
 	public void setApellido(String apellido) {
 		this.apellido = apellido;
-	}
-	public Date getFechaNacimiento() {
-		return fechaNacimiento;
-	}
-	public void setFechaNacimiento(Date fechaNacimiento) {
-		this.fechaNacimiento = fechaNacimiento;
 	}
 	public String getNombre() {
 		return nombre;

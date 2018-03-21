@@ -1,9 +1,15 @@
 package com.autentic.prueba.model.entities;
 
 import java.io.Serializable;
-import javax.persistence.*;
-import java.util.Date;
 import java.util.List;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 
 /**
@@ -21,10 +27,6 @@ public class Usuario implements Serializable {
 	private Integer id;
 
 	private String apellido;
-
-	@Temporal(TemporalType.DATE)
-	@Column(nullable = true)
-	private Date fechaNacimiento;
 
 	private String nombre;
 
@@ -49,14 +51,6 @@ public class Usuario implements Serializable {
 
 	public void setApellido(String apellido) {
 		this.apellido = apellido;
-	}
-
-	public Date getFechaNacimiento() {
-		return this.fechaNacimiento;
-	}
-
-	public void setFechaNacimiento(Date fechaNacimiento) {
-		this.fechaNacimiento = fechaNacimiento;
 	}
 
 	public String getNombre() {
