@@ -31,27 +31,26 @@ public class VentasServiceImpl implements VentasService {
 	public RegistrarVentaResponse registrarVenta(VentaDto ventaDto) throws VentasException {
 		RegistrarVentaResponse registrarVentaResponse = new RegistrarVentaResponse();
 		
-		if(Objects.nonNull(ventaDto)){
-		
+		if(validarVentaDto(ventaDto)){
 			Venta venta = modelMapper.map(ventaDto, Venta.class);
+			Usuario usuario = usuarioRepository.findByCedula(venta.getUsuario().getCedula());
 			
-			if(Objects.nonNull(venta.getUsuario())){
-			
-				Usuario usuario = usuarioRepository.findByCedula(venta.getUsuario().getCedula());
-				
-				if(Objects.nonNull(usuario)){
-					venta.setUsuario(usuario);
-					ventaRepository.save(venta);
-				}else{
-					usuarioRepository.save(venta.getUsuario());
-					ventaRepository.save(venta);
-				}
-				
-				dtoAssemblerRespuesta(registrarVentaResponse);
+			if(Objects.nonNull(usuario)){
+				venta.setUsuario(usuario);
+				ventaRepository.save(venta);
+			}else{
+				usuarioRepository.save(venta.getUsuario());
+				ventaRepository.save(venta);
 			}
+			
+			dtoAssemblerRespuesta(registrarVentaResponse);
 		}
 		
 		return registrarVentaResponse;
+	}
+	
+	private boolean validarVentaDto(VentaDto ventaDto){
+		return (Objects.nonNull(ventaDto) && Objects.nonNull(ventaDto.getUsuario()));
 	}
 	
 	private void dtoAssemblerRespuesta(RegistrarVentaResponse registrarVentaResponse) {
