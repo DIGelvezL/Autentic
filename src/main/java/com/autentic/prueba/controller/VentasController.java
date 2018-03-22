@@ -31,7 +31,8 @@ public class VentasController {
 		try {
 			registrarVentaResponse = ventasService.registrarVenta(ventaDto);
 		} catch (VentasException e) {
-			e.printStackTrace();
+			VentasException exception = new VentasException(e);
+			exception.assemblerErrorLog();
 		}
 		return registrarVentaResponse;
 	}
@@ -43,7 +44,8 @@ public class VentasController {
 		try {
 			reservaDtoList = ventasService.consultarVentas();
 		} catch (VentasException e) {
-			e.printStackTrace();
+			VentasException exception = new VentasException(e);
+			exception.assemblerErrorLog();
 		}
 		return reservaDtoList;
 	}

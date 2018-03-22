@@ -26,7 +26,8 @@ public class ProductosController {
 		try {
 			lst = productoService.getProductos();
 		} catch (VentasException e) {
-			e.printStackTrace();
+			VentasException exception = new VentasException(e);
+			exception.assemblerErrorLog();
 		}
 		return lst;
 	}

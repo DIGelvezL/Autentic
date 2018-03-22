@@ -31,7 +31,7 @@ public class VentasServiceImpl implements VentasService {
 	public RegistrarVentaResponse registrarVenta(VentaDto ventaDto) throws VentasException {
 		RegistrarVentaResponse registrarVentaResponse = new RegistrarVentaResponse();
 		
-		if(Objects.nonNull(ventaDto) && Objects.nonNull(ventaDto.getUsuario())){
+		if(Objects.nonNull(ventaDto) && Objects.nonNull(ventaDto.getUsuario()) && Objects.nonNull(ventaDto.getProducto().getId())){
 			Venta venta = modelMapper.map(ventaDto, Venta.class);
 			Usuario usuario = usuarioRepository.findByCedula(venta.getUsuario().getCedula());
 			
@@ -43,16 +43,25 @@ public class VentasServiceImpl implements VentasService {
 				ventaRepository.save(venta);
 			}
 			
-			dtoAssemblerRespuesta(registrarVentaResponse);
+			dtoAssemblerRespuestaSucces(registrarVentaResponse);
+		}else{
+			dtoAssemblerRespuestaError(registrarVentaResponse);
 		}
 		
 		return registrarVentaResponse;
 	}
 	
-	private void dtoAssemblerRespuesta(RegistrarVentaResponse registrarVentaResponse) {
+	private void dtoAssemblerRespuestaSucces(RegistrarVentaResponse registrarVentaResponse) {
 		RespuestaDto respuesta = new RespuestaDto();
 		respuesta.setCodigo(0);
 		respuesta.setDescripcion("OK");
+		registrarVentaResponse.setRespuesta(respuesta);
+	}
+	
+	private void dtoAssemblerRespuestaError(RegistrarVentaResponse registrarVentaResponse) {
+		RespuestaDto respuesta = new RespuestaDto();
+		respuesta.setCodigo(8000);
+		respuesta.setDescripcion("Error al guardar, datos incompletos");
 		registrarVentaResponse.setRespuesta(respuesta);
 	}
 
